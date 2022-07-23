@@ -8,9 +8,6 @@ const images = express.Router();
 // use express.json for response purposes
 images.use(express.json());
 
-images.get('/test',(req,res)=>{
-    res.sendStatus(200);
-})
 // declare get endpoint on route /api/images
 images.get(
     '/',
@@ -19,12 +16,12 @@ images.get(
         query('width').optional().isInt({ min: 0 }).withMessage('Width should be positive number!'),
         query('height').optional().isInt({ min: 0 }).withMessage('Height should be positive number!'),
     ],
-    async (req: express.Request, res: express.Response) => {
+    async (req: express.Request, res: express.Response): Promise<void> => {
         // validating query stringq
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // if validation fails, response with array of errors
-            return res.status(400).json({
+            res.status(400).json({
                 errors: errors.array(),
             });
         } else {// case query strings validated successfully
@@ -34,7 +31,7 @@ images.get(
             let width = req.query.width?.toString().trim();
             if (!filename) {
                 // filename not provided at all, response with list of images available in library
-                res.status(200).send('Available Images: (' + fullImgs + ') Please input one of them');
+                res.status(200).send('Available Images: (' + await fullImgs + ') Please input one of them');
             } else if (!width && !height) {
                 // width and height not provided, serve Full image
                 if (await isfullImgExist(filename as string)) { // check filename exist in library

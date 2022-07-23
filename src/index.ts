@@ -8,7 +8,7 @@ const port = 3500;
 // use routes defined in images router
 app.use('/api/images', images);
 // declare an endpoint for the root path
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res:express.Response): void  => {
     // redirect to the /api/images path
     res.redirect('/api/images');
 });

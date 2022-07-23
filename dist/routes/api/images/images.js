@@ -20,9 +20,6 @@ const helpers_1 = require("../../../utilities/helpers");
 const images = express_1.default.Router();
 // use express.json for response purposes
 images.use(express_1.default.json());
-images.get('/test', (req, res) => {
-    res.sendStatus(200);
-});
 // declare get endpoint on route /api/images
 images.get('/', [
     (0, express_validator_1.query)('filename').optional().isString(),
@@ -34,7 +31,7 @@ images.get('/', [
     const errors = (0, express_validator_1.validationResult)(req);
     if (!errors.isEmpty()) {
         // if validation fails, response with array of errors
-        return res.status(400).json({
+        res.status(400).json({
             errors: errors.array(),
         });
     }
@@ -45,7 +42,7 @@ images.get('/', [
         let width = (_c = req.query.width) === null || _c === void 0 ? void 0 : _c.toString().trim();
         if (!filename) {
             // filename not provided at all, response with list of images available in library
-            res.status(200).send('Available Images: (' + helpers_1.fullImgs + ') Please input one of them');
+            res.status(200).send('Available Images: (' + (yield helpers_1.fullImgs) + ') Please input one of them');
         }
         else if (!width && !height) {
             // width and height not provided, serve Full image
