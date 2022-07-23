@@ -15,19 +15,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.resizeImg = exports.isThumbExist = exports.isfullImgExist = exports.getFullPath = exports.getThumbPath = exports.fullImgs = void 0;
 const fs_1 = __importDefault(require("fs"));
 const sharp_1 = __importDefault(require("sharp"));
+// create fspromises object from the file system/ promises module
 const fsPromises = fs_1.default.promises;
+// declare full image path
 const fullImgPath = './assets/full/';
+// declare thumb path
 const thumbImgPath = './assets/thumb/';
+// init array of full images available
 exports.fullImgs = readFullImgs(fullImgPath);
+// init array of thumb available
 let thumbImgs = readThumbImgs(thumbImgPath);
+// returns the relative path of certain thumb image
 function getThumbPath(imgName, imgHeight, imgWidth) {
     return `${thumbImgPath}${imgName}_${imgWidth}_${imgHeight}.jpg`;
 }
 exports.getThumbPath = getThumbPath;
+// returns the relative path of certain full image
 function getFullPath(imgName) {
     return `${fullImgPath}${imgName}.jpg`;
 }
 exports.getFullPath = getFullPath;
+// checks if full image exists in folder with given name
 function isfullImgExist(imgName) {
     return __awaiter(this, void 0, void 0, function* () {
         let isfullImgExist = false;
@@ -37,6 +45,7 @@ function isfullImgExist(imgName) {
     });
 }
 exports.isfullImgExist = isfullImgExist;
+// checks if thumb image exists in folder with given name, width and heigth
 function isThumbExist(imgName, imgHeight, imgWidth) {
     return __awaiter(this, void 0, void 0, function* () {
         let isThumbExist = false;
@@ -48,6 +57,7 @@ function isThumbExist(imgName, imgHeight, imgWidth) {
     });
 }
 exports.isThumbExist = isThumbExist;
+// checks if full image exists in folder with given name
 function resizeImg(filename, height, width) {
     return __awaiter(this, void 0, void 0, function* () {
         const resizedImgPath = `${thumbImgPath}${filename}_${width}_${height}.jpg`;
@@ -75,6 +85,7 @@ function resizeImg(filename, height, width) {
     });
 }
 exports.resizeImg = resizeImg;
+// check directory exist
 function checkDirExist(dir) {
     return __awaiter(this, void 0, void 0, function* () {
         let isDirExist = false;
@@ -89,6 +100,7 @@ function checkDirExist(dir) {
         return isDirExist;
     });
 }
+// create directory
 function createDir(dir) {
     return __awaiter(this, void 0, void 0, function* () {
         let dirCreated = false;
@@ -103,6 +115,7 @@ function createDir(dir) {
         return dirCreated;
     });
 }
+// read full images from full images folder
 function readFullImgs(fullImgPath) {
     return __awaiter(this, void 0, void 0, function* () {
         const fImgs = [];
@@ -119,6 +132,7 @@ function readFullImgs(fullImgPath) {
         return fImgs;
     });
 }
+// read thumb images from thumb images folder
 function readThumbImgs(thumbImgPath) {
     return __awaiter(this, void 0, void 0, function* () {
         const thumImgs = [];
