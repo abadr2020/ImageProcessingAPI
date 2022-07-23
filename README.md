@@ -13,6 +13,7 @@ Image Processing API is an API which allows users to view certain library of ima
 - '/api/images?filename={filename}', will return the full original image.
 - '/api/images?filename={filename}&width={width}&heigt={height}', will return a resized version of the original image.
 - '/api/images?filename={filename}&width={width}' OR '/api/images?filename={filename}&heigt={height}', will return a resized version of the original where width = height
+e.g. http://localhost:3500/api/images?filename=fjord&width=10&height=100
 
 ## Scripts
 - "start": "nodemon src/index.ts", starts the application in dev mode.
